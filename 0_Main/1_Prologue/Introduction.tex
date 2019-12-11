@@ -1,0 +1,56 @@
+
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\section{Introduction}
+% Write about the following:
+% The course mobile systems
+% Background / write that Cookiebot has presented 6 cases and which case we chose and why.
+% Scope/problem area/what are we going to solve/restrictions (privacy)
+% Android is used as platform
+% Result is an application that works in real time with http and https requests sent from the mobile phone
+% Case B3 - CompiledAPP and Runtime Android Data - Help the user enforce privacy settings on sensing data
+
+% Scoping to aim at 
+% Tracking technologies
+
+
+
+% Mikkels suggestion for introduction:
+% (1) Motivation and Context: Describe the project’s motivation and the respective context right here. In this part, also include references to literature that provides extra arguments
+% (2) Problem and Objective: What is the (exact) problem to be addressed/solved with the application you build. Note, describe the problem and the overall objective only.
+% (3) Report Outline : Provide some information, where to find what in the report.
+
+
+
+During the course Software Engineering of Mobile Systems, Cybot - a company located in Odense - presented six cases concerning privacy. All cases had the theme: "\textit{How do we enable better privacy control and awareness in mobile sensing apps?}". Privacy is a broad topic so in order to meet the deadline the project was scoped to focus on "Cookies", which is a subcategory of "Tracking Technologies" which includes methods to track users behavior on the Internet \cite{CookieBotHowCookiebot}. Cookies was intentionally invented to solve session management in the stateless HTTP protocol. Recently, cookies got attention due to the the enforcement of GDPR in EU. The problem with Cookies is that they have the capability to track users across websites (cross-site tracking) even without the user's consent, because the technology relies on trust between the user and provider. Blocking regular cookies is still considered to be effective accordingly to a study conducted at Princeton University \cite{Englehardt2016OnlineAnalysis}. The focus of the project presented in this report was to create a prototype of an Android application that enforces privacy of the user by filtering network traffic i.e. cookies and advertisements. This idea was chosen among other ideas because network inspection can be applied to target the common problem of private data being sent over the network without the user's knowledge, but also due to the fact that the developed application could be practically usable after the ending of the course. In the rest of the report the Android application is referred to as Yet Another Network Filter (YANF).
+
+\todoL{Definition of Tracking i.e. adapt the def from disconnect.me}
+
+
+\subsection{Available Privacy Applications for Android}
+A lot of applications which claims to increase privacy on mobile devices are available at the time of writing. A list of the examined applications were compiled and can be found in \smartref{sec:examinedapps}. Beware that the compiled list is not complete - meaning that there is a lot more applications out there but the features are similar. The most prominent features of the applications are; Ad blocking, cookie blocking, blocking of dangerous websites, IP hiding and the use of VPN. Unfortunately, the most powerful of these solutions are not available on Google Play Store. The reason is that Google has banned applications that interfere with other applications in an unauthorized manner \cite{WladimirPalantAdblockStore}. Most likely is it that Google removed the applications because blocking ads undermines their business for promoting ads in applications which hurts the advertisers, Google and developers that wants income on free apps. Banned applications are available as APK-files or Open source on various websites on the Internet. A prominent example of a powerful application is HTTP Canary which depends on the NetBare library under the hood \cite{GuoShiHttpCanaryPlay}\cite{MagatronKingMegatronKing/NetBare:Android}. Surprisingly, HTTP Canary is available for download on Google Play Store - probably because they by default do not interfere with any traffic, but leaves the configuration to the user.
+
+The examined applications are using on the following techniques to provide their features:
+\begin{itemize}
+    \item DNS blocking - relying on returning e.g. 127.0.0.1 on well-known 3\textsuperscript{rd} party domain names
+    \item Browser plugin - limited to a browser (i.e. non-global filtering)
+    \item Hosts file - same technique as DNS but using the hosts-file instead which is a lot faster than using regular DNS (requires root access)
+    \item Local VPN service - a VPN service that routes traffic to a locally hosted VPN on the mobile device. This enables inspection and injection of network traffic.
+    \item Custom Certificate - a self-signed certificate which is installed in the Android KeyStore in order to route HTTPS and other secure protocols through a local VPN service.
+    \item Android Accessibility features - uses the accessibility API in Android to scan the screen for ads and automatically mute them in e.g. YouTube
+    \item Dubbel - an application for running the multiple instances of the same application
+\end{itemize}
+The available applications features removal of 3\textsuperscript{rd} party cookies, but this feature is limited to a browser-extension i.e. it does not remove cookies globally for HTTP(S) requests made outside the browser which raise privacy concerns when a user is communicating over HTTP(S) from other applications. 
+
+\todoL{Find en kilde der understøtter at API kald til advertisement netværk tracker brugeren}
+
+%Even though some applications features removal of 3\textsuperscript{rd} party cookies, this feature is limited to a browser-extension i.e. it does not remove cookies globally for HTTP(S) requests made outside the browser which raise privacy concerns when a user is communicating over HTTP(S) from other applications.
+
+\subsection{Reading Guide}
+The rest of the report covers a description of functionalities of YANF in \smartref{sec:requirements} followed by a description of the technologies, \smartref{sec:technologies} used in the application. Various architectural viewpoints are covered in \smartref{sec:Architecture} with description of the quality attributes of YANF using Quality Attribute Scenarios. \Smartref{sec:evaluation} includes descriptions of the implementation and tests of user stories. In \smartref{sec:discussion} several aspects of the prototype are discussed.
+Lastly the project is concluded in \smartref{sec:conclusion}, followed by a list of future work in \smartref{sec:futureWork}. Furthermore, a user guide is added in \smartref{sec:userguide} describing how the application is used. 
+
+%The developed application is named YANF which has the features described in the form of user stories (\autoref{tab:user_stories}). The user stories are listed in prioritized order from high to low. YANF works in real time by removing cookies from HTTP and HTTPS requests. Requests are filtered based on a selection in a list of domains that are blacklisted. Blacklisted requests have their HTTP-header "Cookie" removed, which makes 3\textsuperscript{rd} parties unable to process this data. Furthermore, YANF has the capability to completely block requests sent from the mobile phone based on the user's desire to e.g. remove advertisements provided by well-known advertisement networks.
+
+
+\end{document}

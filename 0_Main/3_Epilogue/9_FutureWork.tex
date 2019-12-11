@@ -1,0 +1,40 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\section{Future Work}
+\label{sec:futureWork}
+%The requirement of this project was to implement a prototype of a given case. As it is now, the solution meets the functional requirements described in section \smartref{sec:requirements}. %If US3 and US4 are not removed
+%apart from US3 and US4 - look in \autoref{tab:user_stories}. These user stories would be appropriate to the solution, as the functionalities increases the users' privacy, which is the point of YANF.   
+%The functionalities and design of the prototype need improvements, which leads to various topics for future work.
+
+This section lists potential future work for the YANF application if development of the prototype is escalated. The future work includes new features as well as improvements to existing ones.
+
+\begin{itemize}
+    \item Better Energy Efficiency tests in order to provide more precise measures
+    \item Additional protocols
+    \item Polished UI to allow better user experience
+    \item Fine grained control allowing the user for better managing the network filter
+    \item Statistics to improve the display and insight of network traffic
+    \item Persistence to store filtered traffic info. E.g. headers and payload
+    \item Update the \textit{disconnect.me} blacklist automatically when new domains are added
+    \item Payload inspection to increase user awareness of sensitive data being sent to 3rd parties
+    \item Improvement of the run-time in the look-up mechanism of blacklisted domains
+\end{itemize}
+
+% payload inspection??
+
+
+
+
+
+%A test was provided to ensure that the prototype meets the QAS of energy efficiency, described in \smartref{subsec:EnergyEfficiencyTacticandScenario}. The results of the test did meet the hypothesis, but only one test was provided with the screen turned on and off which leads to unclear results. Several factors affect the approach of the test, which might have an impact in the results. Better tests could be provided, but due the lack of time, this was not possible. An option to future work could be to test the usage of YANF for an entire week with test groups. One group sending requests without using YANF, and another group sending requests using YANF.
+
+%The only protocol YANF handles at this moment is HTTP(S). There are many other protocols in the internet, which the prototype does not handle. Therefore, another future work would be to add various other protocols to be handled.
+
+%The User Interface of YANF as it is now, is very basic. A possible future work would be to design the User Interface more professionally, and match it to Cookiebot's preferences.
+%The User Interface contains a list showing  which website are blocked when running the application. This functionality can be improved by using Statistical Machine Learning.
+
+
+%\todoL{YANF usage for a week. Test group.}%Line 9
+
+
+\end{document}

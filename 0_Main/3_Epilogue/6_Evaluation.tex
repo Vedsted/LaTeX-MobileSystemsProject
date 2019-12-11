@@ -1,0 +1,190 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\section{Evaluation}
+\label{sec:evaluation}
+This section covers the evaluation of the YANF application. This includes the user stories implemented and if the architectural tactics satisfies the quality attribute scenarios defined in \smartref{sec:Architecture}.
+
+\subsection{Fulfillment of Requirements}
+% Did we actually implement all the use cases?
+The requirements for YANF are defined as user stories. These are defined in \smartref{sec:requirements}. Each of the user stories will be evaluated in regards to how YANF satisfies these.
+
+\subsubsection{US1: Remove cookies from HTTP(S)-requests}
+The primary user story for YANF is the functionality to remove cookies from the requests sent from a mobile device. This functional requirement overlaps with the non-functional requirement described in \smartref{subsec:PrivacyTacticandScenario}. The requirement is successfully implemented as shown in the evaluation of the quality attribute scenario presented in \smartref{sec:PrivacyTest}. The evaluation shows that cookies are filtered when requests are sent to blacklisted domains. \\
+
+\subsubsection{US2: Filter and remove advertisement requests}
+The second user story for YANF is the functionality to block requests sent to known advertising domains. In order to test this functional requirement, the site \textit{hardwareonline.dk} was requested with and without YANF activated. The YANF application settings was set to; Advertising filter, Cookies allowed, Ads blocked. \Autoref{fig:ads-hol} shows the page without YANF activated where advertisements are shown in the top banner of the page. \Autoref{fig:no-ads-hol} shows the page with YANF activated where advertisements are no longer visible. YANF collected statistics for the amount of requests blocked which is shown in \autoref{tab:yanf-stats}. It is shown that a total amount of 12 requests to 3rd party advertisement networks was blocked.
+
+\begin{figure}[H]
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=.6\linewidth]{Images/Evaluation/ads-com-android-chrome.jpg}
+        \caption{Allowed Advertisements}
+        \label{fig:ads-hol}
+    \end{subfigure}
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=.6\linewidth]{Images/Evaluation/no-ads-com-android-chrome.jpg}
+        \caption{Blocked Advertisements}
+        \label{fig:no-ads-hol}
+    \end{subfigure}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Domain}             & \textbf{Requests} \\ \hline
+adx.adform.net              & 4                 \\ \hline
+track.adform.net            & 2                 \\ \hline
+fastlane.rubiconproject.com & 2                 \\ \hline
+ib.adnx.com                 & 2                 \\ \hline
+track.seadform.net          & 2                 \\ \hline
+\textbf{TOTAL}              & \textbf{12}       \\ \hline
+\end{tabular}
+\caption{Domains blocked}
+\label{tab:yanf-stats}
+\end{table}
+
+
+
+%The results showing the battery consumption can be found in \smartref{sec:EnergyTest}. \\
+%This results in increased privacy and less battery used due to less requests sent.
+
+%\subsubsection{Unimplemented Features}
+%The last two user stories (US3 and US4) was not implemented due to time limitations.
+
+\subsection{Fulfilment of Quality Attribute Scenarios}
+% Evaluate how well / how bad the system lives up to the quality attributes
+
+This section covers how the quality attribute scenario(QAS) has been tested. This includes the setup for the different tests as well as the results generated. 
+The section will be split into subsections addressing each scenario.
+
+
+% Insert the method we used for measuring and the results
+
+
+\subsubsection{Privacy}
+\label{sec:PrivacyTest}
+In order to test the privacy QAS from \smartref{subsec:PrivacyTacticandScenario}, a simple node-js server was created. 
+
+The server is created in with two entry points. The first entry point serves a HTML-file containing a script. The script contained in the HTML-file got two tasks: (1) set a cookie client side and (2) send a POST request to the second endpoint of the server. The POST-request to the server contains the cookie just created. When the POST-request is received on the server the cookie(s) are logged in the terminal. After the cookie(s) have been logged, the data from the body is processed and sent back to the client. The response also contains a \(Set-Cookie\) header, which the client browser interprets and creates a second cookie. The flow for the test is described in \autoref{fig:QASPrivacyFlow}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics{Images/QAS-Test/QASPrivacyFlow.png}
+    \caption{QAS privacy test flow}
+    \label{fig:QASPrivacyFlow}
+\end{figure}
+
+The test was conducted by going through the flow described in \autoref{fig:QASPrivacyFlow} three times. The two first without YANF, and the last with YANF activated. The results from the server is shown in \autoref{lst:QAS-privacy-results}. The results show that first request contains the cookie set by the script in the HMTL-file. This is due to that the second cookie fist is set when the client get the response. The second time the request contains two requests as created by the first response. For the third request, YANF is activated. The results show that all cookies are removed from the request.
+
+\todoL{Be sure that the listing is not cut (spread over multiple pages)}
+\begin{lstlisting}[
+    language=sh,
+    firstline=1, 
+    frame=single, 
+    caption={
+        Cookie removal results
+    },
+    captionpos=b,
+    label=lst:QAS-privacy-results
+]
+#YANF turned off:
+1.st request
+    Header:
+        Cookies:
+            - ClientCookie=ClientCookieValue
+
+2.nd request
+    Header:
+        Cookies: 
+            - ClientCookie=ClientCookieValue
+            - TrackingCookie=TrackingCookieValue
+
+#YANF turned on:
+3.rd request
+    Header:
+        Cookies: 
+\end{lstlisting}
+
+YANF is made so that it removes the cookies from the request header. This is superior compared to removing the set-cookie header from the response. This is due to cookies are able to being set by JavaScript in the client it self. YANF is therefore both guarded against cookies being set by the response header and cookies being set by scripts. This fulfills the response measure specified in \autoref{subsec:PrivacyTacticandScenario}.
+
+
+%The privacy scenario described in section \smartref{subsec:PrivacyTacticandScenario}, was run with both with and without YANF running on a mobile device. The setup for the test can be seen in \smartref{sec:PrivacyMethod}. The results shown in \autoref{lst:privacy}
+
+
+\subsubsection{Energy Efficiency}
+\label{sec:EnergyTest}
+The energy efficiency test has been created in order to verify if YANF comply with the response measure from the energy efficiency scenario described in \smartref{subsec:EnergyEfficiencyTacticandScenario}. The test consists of the following setup: The YANF application, a website with trackers and an android application loading the website and measuring the energy consumption of the phone. 
+
+The goal of the test is to see the difference in energy consumption with YANF turned on vs. off. This is conducted over the duration of loading \textit{cnet.com} 1000 times. The reason \textit{cnet.com} was chosen for the test, was due to it being a known site making use of trackers. 
+%By utilizing the privacy browser \textit{Brave}, it is shown that 26 trackers is being blocked when loading the \textit{cnet.com} home page. 
+
+In order to ensure the same conditions the phone is configured to the following specifications before starting the test each time:
+\begin{itemize}
+    \item Phone is a OnePlus 5
+    \item Battery is 3300 mAh
+    \item Battery is charged to 100\%
+    \item All other applications than YANF and the test application is closed. 
+    \item Internet is turned off for all other applications than YANF and the test application
+    \item Screen brightness is set to 50\%
+    \item Auto adjusting screen brightness is disabled
+    \item Phone connected to WiFi
+\end{itemize}
+
+%charged fully before the test is started. Furthermore, the phone is stripped of all other applications using the internet connection. This is done so that the only thing using running on the phone and sending requests is YANF and the YANF-Energy-Test application. 
+
+The energy test is run first with YANF turned off. This is done to have a base energy consumption. After the first test, the phone has been restored to the listed specifications. The test is then run again with YANF turned on. The results can be seen in \autoref{tab:energyConsumption1}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|}\hline
+        \textbf{Test}   & \textbf{Power consumption}    \\ \hline
+        YANF off         & 24\%                          \\ \hline
+        YANF on        & 27\%                          \\ \hline
+    \end{tabular}
+    \caption{Energy consumption test for  loading \textit{cnet.com} 1000 times}
+    \label{tab:energyConsumption1}
+\end{table}
+
+The results from the test shows that more power is consumed with YANF turned on. Furthermore, there is a very high power consumption for both tests. A hypothesis for this is the screen consuming the power. This might also affect the results of YANF being turned on, due to requests having a bit increased latency and therefore, the screen is turned on for a longer duration.
+
+Based on the results a new test configuration was created. The new test is set up, so that the screen in turned off. This gives the following phone configuration for the second test:
+
+\begin{itemize}
+    \item Phone is a OnePlus 5
+    \item Battery is 3300 mAh
+    \item Battery is charged to 100\%
+    \item All other applications than YANF and the test application is closed. 
+    \item Internet is turned off for all other applications than YANF and the test application
+    \item Phone connected to WiFi
+    \item Screen is turned off for the duration of the test
+\end{itemize}
+
+The second test was run first with YANF off followed by it being on, resulting in the results seen in \autoref{tab:energyConsumption2}
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|}\hline
+        \textbf{Test}   & \textbf{Power consumption}    \\ \hline
+        YANF off         & 3\%                          \\ \hline
+        YANF on        & 3\%                          \\ \hline
+    \end{tabular}
+    \caption{Second energy consumption test for loading \textit{cnet.com} 1000 times}
+    \label{tab:energyConsumption2}
+\end{table}
+
+The results from the second test shows that screen was depleting the battery, and that YANF in it self does not deplete the battery. It should still be noted that by using YANF there will be a marginally increased latency and therefore increased screen time. Based on these results the hypothesis from \smartref{subsec:EnergyEfficiencyTacticandScenario} can not be rejected. Furthermore, YANF comply with the response measure specified for energy efficiency.
+
+
+% Screen on
+% YANF off - 1000 reqs - 24% power
+% YANF on - 1000 reqs - 27% power
+
+
+% Screen off
+% YANF off - 1000 reqs - 3% power
+% YANF on - 1000 reqs - 3% power
+
+\end{document}

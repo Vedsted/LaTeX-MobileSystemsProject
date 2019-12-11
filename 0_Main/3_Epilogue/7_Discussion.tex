@@ -1,0 +1,48 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\section{Discussion}
+\label{sec:discussion}
+
+%Mikkels slides: Reflection and Discussion: Reflect on your solution, e.g., by providing test and evaluation results, demonstrations, and so forth. *DONE* Elaborate what parts of the addressed problem are (not) solved. Reflect on the project as such.
+This section discuss major concerns of YANF in terms of privacy, the blacklist used, run-time of inspecting each network request, the dependency on NetBare and the approach of evaluating energy efficiency.
+
+
+\subsection{Limitations of Filtering}
+YANF increases the privacy for the user with its ability to filter 3\textsuperscript{rd} party cookies and block advertisements. This does on the other hand not ensure that the user is not being tracked by other means. Cookies are one of many methods of tracking. Other methods include: Tracking pixels, web beacons, fingerprinting and more. The library Evercookie is an example of a piece of software that exploits features of web technologies which ultimately are able to track users with techniques different from cookies. Furthermore, if a website embeds tracking mechanisms on-site in e.g. JavaScript then blocking 3\textsuperscript{rd} parties has no effect.
+
+% Payload
+YANF is at the time of writing only able to intercept HTTP(S) traffic in non-sophisticated ways. More sophisticated approaches should support a wider range of protocols and be able to detect sensitive data at the payload level of network packets, for example location, microphone and other sensor data. Detecting sensitive data on the payload level could be isolated to its own type of problem of using machine learning for classification which could then be integrated into YANF.
+
+\subsection{Blacklist and Run-time}
+% Blacklist and run-time
+The \textit{disconnect.me} blacklist provides only a static compilation of known hosts that tracks users. Even though the list is updated regularly it does not guarantee to provide a complete list of hosts that tracks users. Only a snapshot of the list is currently stored on the mobile device's internal storage and is thus not being fetched every time there is an update to the list. For each outbound packet the list is iterated from 1..N, where N is the amount of domains in the list. If there is a match then the packet is inspected or discarded. This approach of checking if a packet should be intercepted may slow down the performance drastically if the blacklist grows large since the check of each packet runs in O(N). An alternative solution should be implemented to be able to look-up a certain domain by e.g. looking at the hash value of the domain.
+
+\subsection{Dependency on NetBare}
+% Heavily dependent on NetBare
+YANF depends heavily on the NetBare library for providing its functionality. If the Android architecture is altered in such a way that NetBare should be updated, then YANF is dependent on the author providing maintenance. While researching for available technologies, no alternatives was found which means that the life span of YANF is unknown. Even though it should be possible to develop another communication layer it requires expert knowledge in programming for computer networks.
+
+
+\subsection{Energy Efficiency Evaluation Approach}
+% Alternative tests (take the part from energy efficiency)
+The current approach to evaluate the QAS Energy Efficiency may be too primitive to yield insight in true energy consumption of YANF. To further analyze the energy consumption of YANF more tests should be made. An example of such tests could be to have a group of test users. These users could be monitored over a longer period without using YANF, followed up by another period of using it. This would give better insight into how YANF affects the battery depletion through normal everyday use. Furthermore, there should be tests to show if YANF is able to reduce battery depletion by reducing screen rendering of advertisements. Advertisements often use animations to catch the user's attention which use resources when refreshing the screen.
+
+
+% Is the solution "good enough" for a prototype?
+    % was it possible to inspect requests on a global basis?
+
+% The iteration of domains may be inappropriate for a long list
+
+% Cannot load the whole list of disconnect.me
+
+% Discuss that there are a lot other tracking mechanisms (evercookie) and protocols which are not covered by YANF
+
+
+%Cookies is not the only way of tracking users. , but there is a wide variety of other methods. Some of the methods includes: canvas fingerprinting, JavaScript, etc. 
+% Cookies is only one way of tracking. More sophisticated methods exists e.g. Canvas fingerprinting, JavaScript, , etc. ref: https://en.wikipedia.org/wiki/Web_tracking
+
+
+
+% Swiss army knife Evercookie exploits many technologies to still allow tracking of users
+% https://github.com/samyk/evercookie
+
+\end{document}

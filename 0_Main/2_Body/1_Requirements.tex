@@ -1,0 +1,28 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+\section{Functional Requirements}
+\label{sec:requirements}
+% What is the problem about? What is the impact the unsolved problem has to technology/society? Characterize the problem in a way that allows for deriving a solution
+%\todoL{intro}
+%\todoL{hvordan er krav fundet/valgt?}
+
+This section covers a set of functional requirements are presented in the form of user stories. The user stories was created in order to fill the existing gap and provide usable functionality to the user. \Autoref{tab:user_stories} shows the user stories in a prioritized (high to low) manner. The user stories was prioritized based on which features that would bring immediate value in terms of privacy across many applications on the mobile device. Since cookies arguably are the most commonly used tracking mechanism over HTTP(S), this was the number one priority.
+
+
+%\todoL{Fjern US3 + US4}
+%\todoL{Fjern ALLE refs igennem rapporten til US3+US4}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{1cm}|p{12cm}|} \hline
+        \textbf{ID} & \textbf{User story} \\ \hline
+        US1 & As a mobile user, I want to remove cookies globally from HTTP(S)-requests sent from my mobile device in order to avoid tracking from 3\textsuperscript{rd} parties. \\ \hline
+        US2 & As a mobile user, I want to be able to remove ad requests globally from HTTP(s)-requests on web pages or in other applications on the phone in order to avoid tracking from 3\textsuperscript{rd} parties. \\ \hline
+        %US3 & As a mobile user, I want to filter location data sent from my device in order to increase my privacy.\\ \hline
+        %US4 & As a mobile user, I want to be able to set specific permissions for sending data over the network for individual applications. \\ \hline
+    \end{tabular}
+    \caption{User stories}
+    \label{tab:user_stories}
+\end{table}
+
+\end{document}

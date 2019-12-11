@@ -1,0 +1,33 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\section{Conclusion}
+\label{sec:conclusion}
+% summarises the contribution of the work and identifies future work, etc.
+% Conclusions chapter evaluates the project overall – how well it achieves its aims and objectives (outlined in the Introduction)
+%After the completion of the project, it can be concluded that the solution was able to meet the initial thoughts. On the basis of this idea, user stories were designed and most of these were implemented. The prototype is build on top of NetBare library enabling injection of network requests. To be able to remove cookies and ads, a list of blacklisted domains were needed, which is provided by Disconnect.me.  
+
+%Several diagrams have been created to showcase the available components and the interaction of these.
+
+
+%The evaluation covers thoughts on the fulfillment of requirements. Both US1 and US2, see \autoref{tab:user_stories} in \smartref{sec:requirements}, are implemented to a certain extent, but US3 and US4 were unimplemented. The fulfillment of QAS is covered too. The test of privacy resulted in returning a header with the cookie removed. The test of energy efficiency resulted in the same amount of battery depletion when YANF is on and off.
+
+%A section of the discussion is also dedicated to reflecting on the implemented solution and the technologies provided.
+
+%NetBare enabled the possibility to increase privacy by removing cookies globally from HTTP(S)-requests, but the user can still be tracked with the use of other methods than cookies.
+
+
+The YANF prototype increases the privacy for the user by filtering and removing cookies and ads on 2286 domains known for tracking their users. Compared to other privacy applications, the prototype filters network traffic globally for the android device, which means that all browsers and applications on the device are affected. 
+
+The architecture of YANF builds on NetBare which supports the defined Quality Attribute Scenarios of Privacy and Energy Efficiency. The evaluation of the response measures from the QAS indicates that the tactics \textit{Protection Against Tracking} and \textit{Quality of Efficiency} are sufficient for the prototype. This is shown in the amount of energy consumed when YANF is activated is the same when YANF is deactivated.
+
+Even though YANF increases the privacy of users by blocking data sent to 3rd parties, there are still other tracking methods that YANF are not able to handle. Furthermore, YANF is limited by the static disconnect.me blacklist. This list is currently not updated in YANF, even though new tracking sites are found. Further development are able to build directly on the current prototype of YANF, but the prototype would benefit to depend on one or more interfaces instead of NetBare directly. This would allow for easier change of the communication layer as well as increasing the testability of YANF.
+
+% do yanf solve the (sub) problem of privacy i.e. cookies and advertisements .. tracking
+
+% what is next -> can the prototype be used? and for what? 
+% is the architecture suitable for the QAS. Is the use of NetBare an obstacle in this regard?
+% prototype description
+% value &/| contribution. Global, 
+
+
+\end{document}

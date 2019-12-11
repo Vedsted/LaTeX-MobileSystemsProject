@@ -1,0 +1,47 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\section{Technological Dependencies}
+\label{sec:technologies}
+%Introduction to the section. Which techs do we use in the application?
+This section covers the technological dependencies used in the YANF application.
+
+% \textbf{Proxy:}    
+% Cons: Proxies on android are network/wifi specific, resulting in loosing the functionality when switching to mobile % network.
+% \textbf{VPN: }
+
+\subsection{NetBare}
+YANF is build on top of NetBare, which is a open source Android library\cite{MagatronKingMegatronKing/NetBare:Android}. NetBare enables to intercept and inject network  request before they are sent from the users device. NetBare functions by creating a local VPN the mobile connects to and installs a SSL certificate. Applications using NetBare can hereby modify requests and responses sent and received on the phone. NetBare is created by MegatronKing, and can be found on GitHub at: \hyperlink{https://github.com/MegatronKing/NetBare}{MegatronKing/NetBare}.
+
+YANF uses NetBare by creating injectors that checks what requests that need processing before they are sent. The injectors also have the responsibility of defining how the requests are modified. Using the NetBare library gives the advantage of having a filter that works globally for all requests made from the mobile device. This is a clear advantage compared to other privacy applications that replaces the browser application on the device. Furthermore, these privacy browsers only filters the network communication made through that application.
+
+% Global solution for mobile phone 
+
+
+%\subsection{Do not Track}
+%Do Not Track(DNT) is a HTTP header field for opting out of tracking from websites. When user sends the DNT tag, its up to the requested service to support and handle the users choice. The DNT standard is currently only supported by few sites.
+
+\subsection{Disconnect.me Blacklist}
+\label{sec:disconnect-me}
+Disconnect.me provides a json file of domains where different kinds of tracking is performed. The file provided by Disconnect.io contains six categories, each with a descriptions as seen in \autoref{tab:disconnectMe}.
+The domains in each category forms the foundation for the filter to be used in YANF. This file has also been used by Mozilla Firefox's privacy feature \textit{Enhanced Tracking Protection} since June 2019, as well as in a study made by Englehardt in 2016\cite{Englehardt2016OnlineAnalysis}.
+
+% The categories covers e.g. the category \textit{Advertising} which contains domains which collects personal information in order to provide targeted advertisements. 
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{3cm}|p{11cm}|} \hline
+        \textbf{Category} & \textbf{Description} \\ \hline
+        Advertising & A tracker which also displays ads or marketing offers. These types of ads can track your personal information and expose you to malware, even if you don’t interact with them. \\ \hline
+        Analytics & A tracker which collects your information and may build a profile based on your online activity that can be connected with your real name or other unique identifier. \\ \hline
+        Cryptomining & A domain may be classified as cryptomining if it can cause the user's browser to mine cryptocurrencies without explicit user opt-in. \\ \hline
+        Fingerprinting & A tracker may be classified as fingerprinting if it abuses browser or device features in unintended ways to identify and track users. \\ \hline
+        Session replay & A tracker which records all actions a user takes on a webpage in order to recreate the user's session may be classified as a replay script. \\ \hline
+        Social & A tracker may be classified as social if it uses tracking techniques that allow a social networking service to track your web browsing activities even when you are not on the social network’s website or app. \\ \hline
+    \end{tabular}
+    \caption{List of tracker categories from Disconnect.me}
+    \label{tab:disconnectMe}
+\end{table}
+
+
+
+\end{document}

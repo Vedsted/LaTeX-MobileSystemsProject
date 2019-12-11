@@ -1,0 +1,59 @@
+\documentclass[a4paper, 12pt, English]{article}
+\usepackage{setup} %Se setup.sty for inkluderede pakker
+\usepackage{graphicx}
+
+\title{YANF}
+\author{Jonas Vedsted Sørensen}
+\date{October 2019}
+
+\begin{document}
+
+\subfile{frontpage.tex}
+
+%%%%%%%%%%%%  Inkluder følgende sektioner %%%%%%%%%%%%
+\subfile{0_Main/1_Prologue/Abstract.tex}
+\newpage
+%\subfile{0_Main/1_Prologue/ReadingGuide.tex}
+%\newpage
+
+\setcounter{secnumdepth}{3} % removes numbering from subsubsections
+\setcounter{tocdepth}{2} % set level limit for TOC (includes section and subsection)
+\tableofcontents
+\newpage
+
+\pagenumbering{arabic} %Sidehoved og sidefod
+\rfoot{Page \thepage \hspace{1pt} of \pageref{LastPage}}
+%\rfoot{Page \thepage \hspace{1pt} of 79}
+
+\subfile{0_Main/1_Prologue/Introduction.tex}
+\newpage
+\subfile{0_Main/2_Body/1_Requirements.tex}
+%\subfile{0_Main/2_Body/2_ExistingServices.tex}
+\newpage
+\subfile{0_Main/2_Body/3_Technologies.tex}
+\newpage
+\subfile{0_Main/2_Body/4_Architecture.tex}
+\newpage
+%\subfile{0_Main/2_Body/5_QAS_Tests.tex}
+%\newpage
+\subfile{0_Main/3_Epilogue/6_Evaluation.tex}
+\newpage
+\subfile{0_Main/3_Epilogue/7_Discussion.tex}
+\newpage
+\subfile{0_Main/3_Epilogue/8_Conclusion.tex}
+\newpage
+\subfile{0_Main/3_Epilogue/9_FutureWork.tex}
+\newpage
+
+%%%%%%%%%%%%  Inkluder Andet %%%%%%%%%%%%
+%\newpage
+%\printglossary[type=\acronymtype]
+%\printglossary[type=main]
+
+\newpage
+%\nocite{*}%Shows all refs
+\printbibliography
+
+\newpage
+\subfile{1_Appendix/appendices.tex}
+\end{document}

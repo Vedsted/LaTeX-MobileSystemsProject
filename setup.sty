@@ -1,0 +1,252 @@
+\ProvidesPackage{setup}
+
+%%%%%%%%%%%%  INKLUDEREDE PAKKER %%%%%%%%%%%% 
+
+\usepackage[xindy,toc, nonumberlist, acronym]{glossaries}
+\usepackage[a4paper, top=3cm, bottom=3cm, right=2.5cm, left=2.5cm]{geometry} %Sætter margin
+\usepackage[backend=biber, citestyle=authoryear, sorting=none, style=nature]{biblatex}
+\addbibresource{references.bib}
+\usepackage{fancyhdr}
+\usepackage[dvipsnames,table,xcdraw]{xcolor} % Farve til kode. Skal loades først
+\usepackage[utf8]{inputenc}
+\usepackage{array} %til at lave afstand i tabeller
+\usepackage{booktabs} %Giver flere muligheder i tabeller fx \toprule, \midrule
+\usepackage{caption} %config af captions
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\usepackage[siunitx]{circuitikz} % Bruges til at tegne elektrisk kredsløb
+    \definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+    \definecolor{mylilas}{RGB}{170,55,241}
+%\usepackage[danish]{babel} %Danske bogstaver
+\usepackage{mathrsfs,amsmath} % Math expansion 
+\usepackage{enumitem}
+\usepackage[font=footnotesize,labelfont=bf]{caption} % Figurtekst:Fed label, lille tekst
+\usepackage{float} % Improves the interface for defining floating objects such as figures and tables.
+\usepackage{fancyhdr} % Denne pakke bruges til at lave sidehoved
+\usepackage[hidelinks]{hyperref} %Til referencer, fjerner rødekasser
+\usepackage{siunitx} %Hjælper med enheder \si[⟨options⟩]{⟨unit⟩} og \tablenum[⟨options⟩]{⟨number⟩}
+\usepackage{lastpage} % Bruges til at lave side 1 af side x
+\usepackage{listings, chngcntr} %Reproducer kode
+\usepackage{inconsolata} %Til MATLAB font
+\usepackage[defaultlines=4,all]{nowidow} %Horreunger
+\usepackage[parfill]{parskip} % Ingen indentering ved ny paragraf
+\usepackage{setspace} %Linjeafstand
+\usepackage{subcaption} % Captions for subfigures
+\usepackage{subfiles} % Enables compiling of only subfiles 
+\usepackage{tikz} % Bruges til at tegne fritlegeme diagrammer
+\usepackage[compact]{titlesec} %raggedright
+\usetikzlibrary{scopes, decorations.pathmorphing} % Pakker til tikz
+\usetikzlibrary{shapes.geometric}                 % Pakker til tikz
+\usetikzlibrary{shapes.misc, positioning}         % Pakker til tikz
+\usepackage{todonotes}
+\usepackage[final]{pdfpages}
+\usepackage[figuresleft]{rotating}
+\usepackage{catoptions}
+%%%%%%%%%%%%  Listings setting %%%%%%%%%%%%
+%Java formatting
+\definecolor{keywordcolor}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.40,0}
+\definecolor{mauve}{rgb}{0.30,0,0.30}
+\definecolor{bgcolor}{rgb}{0.99,0.99,0.99}
+\definecolor{carnelian}{rgb}{0.7, 0.11, 0.11}
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+% Other Java highlighting
+% https://tex.stackexchange.com/questions/115467/listings-highlight-java-annotations
+
+\lstdefinestyle{JAVA}{frame=tb,
+  backgroundcolor = \color{bgcolor},
+  language=Java,
+  aboveskip=3mm,
+  belowskip=1mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\footnotesize,
+  keywordstyle=\color{keywordcolor}\bfseries,
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=false,
+  tabsize=1,
+  morekeywords={  abstract, async, await, new, struct,
+                as, explicit, null, switch,
+                base, extern, object, this,
+                bool, false, operator, throw,
+                break, finally, out, true,
+                byte, fixed, override, try,
+                case, float, params, typeof,
+                catch, for, private, uint,
+                char, foreach, protected, ulong,
+                checked, goto, public, unchecked,
+                class, if, readonly, unsafe,
+                const, implicit, ref, ushort,
+                continue, in, return, using,
+                decimal, int, sbyte, virtual, var,
+                default, interface, sealed, volatile,
+                delegate, internal, short, void,
+                do, is, sizeof, while,
+                double, lock, stackalloc,
+                else, long, static,
+                enum, namespace, string, Assert, assertTrue}% list your attributes here
+}
+
+%%%%%%%%%%%%  MARKOS %%%%%%%%%%%%
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} %Brug \numberthis i align* til at nummerere ligning
+\addtocontents{toc}{\protect\setstretch{0.9}}
+\mathcode`\*="8000 {\catcode`\*\active\gdef*{\cdot}} % Laver * til \cdot brug \ast for *
+\let\olddeg\deg
+\renewcommand{\deg}{$^\circ$} %Brug deg til at lave grader tegnet
+\makeatletter
+\newcommand{\greyrow}{\rowcolor[HTML]{EFEFEF}}
+\def\Sl{table-number-alignment = left,table-text-alignment = left}
+%\newcommand{\Sl}{[table-number-alignment = left,table-text-alignment = left]}
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1pt\hskip\tabcolsep}}
+\makeatother
+\newcommand{\mcode}[1]{\texttt{#1}} %Formater tekst til MATLAB-font eg. funktioner
+\DeclareMathOperator{\sinc}{sinc}
+
+%%%%%%%%%%%% SIDEOPSÆTNING  %%%%%%%%%%%%
+\numberwithin{equation}{section} % Nummererer ligninger efter sektion
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\begingroup\expandafter\expandafter\expandafter\endgroup
+\pagenumbering{roman} 
+\setlength{\belowcaptionskip}{2pt}
+\setlength{\headheight}{15pt} 
+\setlength{\parskip}{6pt}
+\titlespacing*{\section}{0pt}{1ex}{1ex} %Astand til sektion
+\titlespacing*{\subsection}{0pt}{1ex}{1ex} %Afstand til subsektion
+\linespread{1.4} %Sætter linjeafstand til 1.4
+\pagestyle{fancy} %Til opsættningen af sidehoved og -fod
+\fancyhf{}
+\fancyhead[L]{ \nouppercase{\rightmark} }
+\rfoot{\thepage}
+\setkeys{Gin}{width=.9\textwidth} %Standard brede af figure
+
+
+%%%%%%%%%%%%%%%     Glossary     %%%%%%%%%%%%%%%%%%%
+\DeclareDocumentCommand{\newgloss}{ O{} O{} m m m m } {
+  \newglossaryentry{gls-#3}{name={#5},text={#5\glsadd{#3}},
+    description={#6},#1
+  }
+  \makeglossaries
+  \newacronym[see={[Glossary:]{gls-#3}},#2]{#3}{#4}{#5\glsadd{gls-#3}}
+}
+\input{Glossary.tex}
+
+
+%%%%%%%%%%%% Autoref with capital start letter feature %%%%%%%%%%%%%%%%
+\makeatletter
+\def\figureautorefname{figure}
+\def\tableautorefname{table}
+\def\Autoref#1{%
+  \begingroup
+  \edef\reserved@a{\cpttrimspaces{#1}}%
+  \ifcsndefTF{r@#1}{%
+    \xaftercsname{\expandafter\testreftype\@fourthoffive}
+      {r@\reserved@a}.\\{#1}%
+  }{%
+    \ref{#1}%
+  }%
+  \endgroup
+}
+\def\testreftype#1.#2\\#3{%
+  \ifcsndefTF{#1autorefname}{%
+    \def\reserved@a##1##2\@nil{%
+      \uppercase{\def\ref@name{##1}}%
+      \csn@edef{#1autorefname}{\ref@name##2}%
+      \autoref{#3}%
+    }%
+    \reserved@a#1\@nil
+  }{%
+    \autoref{#3}%
+  }%
+}
+\makeatother
+
+%%%%%%%%%%%%%%%%%% macros %%%%%%%%%%%%%%%%%%%%%%%%%%
+% pretty ref -> Section 5 (Some Section)
+\newcommand{\smartref}[1]{\autoref{#1} (\nameref{#1})}
+\newcommand{\Smartref}[1]{\Autoref{#1} (\nameref{#1})}
+% todo inline
+\newcommand{\todoL}[1]{\todo[inline]{#1}}
+
+%%%%%%%%%%%%%%%%%% yml listings %%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\YAMLcolonstyle{\color{red}\mdseries}
+\newcommand\YAMLkeystyle{\color{black}\bfseries\linespread{1}\small\ttfamily}
+\newcommand\YAMLvaluestyle{\color{blue}\mdseries}
+\definecolor{bgcolor}{rgb}{0.99,0.99,0.99}
+
+\makeatletter
+
+% here is a macro expanding to the name of the language
+% (handy if you decide to change it further down the road)
+\newcommand\language@yaml{yaml}
+
+\expandafter\expandafter\expandafter\lstdefinelanguage
+\expandafter{\language@yaml}
+{
+  keywords={true,false,null,y,n},
+  keywordstyle=\color{darkgray}\bfseries,
+  basicstyle={\YAMLkeystyle},                                 % assuming a key comes first
+  sensitive=false,
+  comment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\YAMLvaluestyle\ttfamily,
+  moredelim=[l][\color{orange}]{\&},
+  moredelim=[l][\color{magenta}]{*},
+  moredelim=**[il][\YAMLcolonstyle{:}\YAMLvaluestyle]{:},   % switch to value style at :
+  morestring=[b]',
+  morestring=[b]",
+  literate =    {---}{{\ProcessThreeDashes}}3
+                {>}{{\textcolor{red}\textgreater}}1     
+                {|}{{\textcolor{red}\textbar}}1 
+                {\ -\ }{{\mdseries\ -\ }}3,
+  numbers=left,                    
+  numbersep=5pt,
+  backgroundcolor = \color{bgcolor},
+  aboveskip=3mm,
+  belowskip=1mm,
+  tabsize=1,
+  escapechar=|,
+  showstringspaces=false,
+}
+
+% switch to key style at EOL
+\lst@AddToHook{EveryLine}{\ifx\lst@language\language@yaml\YAMLkeystyle\fi}
+\makeatother
+
+\newcommand\ProcessThreeDashes{\llap{\color{cyan}\mdseries-{-}-}}
+
+  
+  
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns,type},% list your attributes here
+  backgroundcolor = \color{bgcolor},
+  numbers=left,
+}
+
+\lstdefinelanguage{sh}
+{
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{darkblue},
+  morekeywords={sudo},% list your attributes here
+  backgroundcolor = \color{bgcolor},
+  numbers=left,
+  comment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

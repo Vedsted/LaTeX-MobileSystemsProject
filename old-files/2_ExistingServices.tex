@@ -1,0 +1,25 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\section{Existing Applications}
+A lot of applications which claims to increase privacy on mobile devices exists at the time of writing. A list of the examined applications were compiled and can be found in \smartref{sec:examinedapps}. Beware that the compiled list is not complete - meaning that there is a lot more applications out there. The most prominent features of the applications are; Ad blocking, cookie blocking, blocking of dangerous websites, IP hiding and the use of VPN. Unfortunately, the most powerful of these solutions are not available on Google Play Store. The reason is that Google has banned applications that interfere with other applications in an unauthorized manner \cite{WladimirPalantAdblockStore}. Most likely is it that Google removed the applications because blocking ads undermines their business for promoting ads in applications which hurts the advertisers, Google and developers that wants income on free apps. Banned applications are available as APK-files or Open source on various websites on the Internet. A prominent example of a powerful application is HTTP Canary \cite{GuoShiHttpCanaryPlay} which depends on the Netbare library \cite{MagatronKingMegatronKing/NetBare:Android} under the hood. Surprisingly, HTTP Canary is available for download on Google Play Store - probably because they by default do not interfere with any traffic, but leaves the configuration to the user.
+
+The examined applications are using on the following techniques to provide their features:
+\begin{itemize}
+    \item DNS blocking - relying on returning e.g. 127.0.0.1 on well-known 3\textsuperscript{rd} party domain names
+    \item Browser plugin - limited to a browser (i.e. non-global filtering)
+    \item Hosts file - same technique as DNS but using the hosts-file instead which is a lot faster than using regular DNS (requires root access)
+    \item Local VPN service - a VPN service that routes traffic to a locally hosted VPN on the mobile device. This enables inspection and injection of network traffic.
+    \item Custom Certificate - a self-signed certificate which is installed in the Android KeyStore in order to route HTTPS and other secure protocols through a local VPN service.
+    \item Android Accessibility features - uses the accessibility API in Android to scan the screen for ads and automatically mute them in e.g. YouTube
+    \item Dubbel - an application for running the multiple instances of the same application
+\end{itemize}
+
+Even though some applications features removal of 3\textsuperscript{rd} party cookies, this feature is limited to a browser-extension i.e. it does not remove cookies globally for HTTP requests made outside the browser.
+
+\Smartref{sec:technologies} will explain which and why certain techniques were adapted for this prototype.
+
+%\todo[inline]{Insert what restrictions that they have e.g. limited to unencrypted traffic such as HTTP. HTTPS requires root.}
+%\todo[inline]{Insert a list of apps that we examined (it is on google drive)}
+%\todo[inline]{Insert the link to the github repo MegatronKing/Netbare and describe how we can utilize it for our app}
+
+\end{document}
